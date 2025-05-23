@@ -1,12 +1,13 @@
 pipeline {
- agent any
- stages {
-       stage('Checkout') {
-           steps {
-               git branch: 'main', url: ' https://github.com/SanduniDissanayake25/8.2CDevSecOps.git'
-           }
-       }
- 
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/SanduniDissanayake25/8.2CDevSecOps.git'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 bat 'npm install'
@@ -15,20 +16,56 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'npm test || exit /b 0' // Allows pipeline to continue despite test failures
+                bat 'npm test || exit /b 0'
+            }
+            post {
+                success {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Run Tests SUCCESS',
+                        body: 'The "Run Tests" stage completed successfully.',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Run Tests FAILED',
+                        body: 'The "Run Tests" stage failed. Please check the attached log.',
+                        attachLog: true
+                    )
+                }
             }
         }
 
         stage('Generate Coverage Report') {
             steps {
-                bat 'npm run coverage || exit /b 0' // Continues if coverage report fails
+                bat 'npm run coverage || exit /b 0'
             }
         }
 
         stage('NPM Audit (Security Scan)') {
             steps {
-                bat 'npm audit || exit /b 0' // Shows known CVEs in console
+                bat 'npm audit || exit /b 0'
+            }
+            post {
+                success {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Security Scan SUCCESS',
+                        body: 'The "Security Scan" stage completed successfully.',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Security Scan FAILED',
+                        body: 'The "Security Scan" stage failed. Please check the attached log.',
+                        attachLog: true
+                    )
+                }
             }
         }
- }
+    }
 }
