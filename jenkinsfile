@@ -26,7 +26,7 @@ pipeline {
                     mail(
                         to: '0108sandydee24@gmail.com',
                         subject: 'Build Status Email',
-                        body: 'Unit & Integration Tests Were successful'
+                        body: 'Unit & Integration Tests were successful'
                     )
                 }
             }
