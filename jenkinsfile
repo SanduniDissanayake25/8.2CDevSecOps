@@ -7,10 +7,12 @@ pipeline {
                 echo 'Stage 1: Build – Compile and package the code using Maven.'
             }
             post{
-                mail to: "0108sandydee24@gmail.com"
-                subject: "Build Status Email"
-                body: "Build was successful"
+                success{
+                    mail to: "0108sandydee24@gmail.com"
+                    subject: "Build Status Email"
+                    body: "Build was successful"
             }
+          }
         }
 
         stage('Unit & Integration Tests') {
