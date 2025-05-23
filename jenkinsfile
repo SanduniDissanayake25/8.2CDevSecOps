@@ -6,13 +6,15 @@ pipeline {
             steps {
                 echo 'Stage 1: Build – Compile and package the code using Maven.'
             }
-            post{
-                success{
-                    mail to: "0108sandydee24@gmail.com"
-                    subject: "Build Status Email"
-                    body: "Build was successful"
+            post {
+                success {
+                    mail(
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Build Status Email',
+                        body: 'Build was successful'
+                    )
+                }
             }
-          }
         }
 
         stage('Unit & Integration Tests') {
@@ -50,7 +52,8 @@ pipeline {
                 echo 'Stage 7: Deploy to Production – Final production deployment using AWS CLI.'
             }
         }
-       stage('Complete') {
+
+        stage('Complete') {
             steps {
                 echo 'Stage 8: Completed – Handed over to the client.'
             }
