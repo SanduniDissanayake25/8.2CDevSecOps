@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Stage 1: Build – Compile and package the code using Maven.'
+            }
+            post {
+                success {
+                    mail(
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Build Status Email',
+                        body: 'Build was successful'
+                    )
+                }
+            }
+        }
+
+        stage('Unit & Integration Tests') {
+            steps {
+                echo 'Stage 2: Unit & Integration Tests – Run tests using JUnit and Selenium.'
+            }
+        }
+
+        stage('Code Analysis') {
+            steps {
+                echo 'Stage 3: Code Analysis – Use SonarQube to analyze code quality.'
+            }
+        }
+
+        stage('Security Scan') {
+            steps {
+                echo 'Stage 4: Security Scan – Use OWASP Dependency-Check for vulnerabilities.'
+            }
+        }
+
+        stage('Deploy to Staging') {
+            steps {
+                echo 'Stage 5: Deploy to Staging – Deploy app to AWS EC2 using AWS CLI.'
+            }
+        }
+
+        stage('Integration Tests on Staging') {
+            steps {
+                echo 'Stage 6: Integration Tests on Staging – Use Selenium to test staging.'
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                echo 'Stage 7: Deploy to Production – Final production deployment using AWS CLI.'
+            }
+        }
+
+        stage('Complete') {
+            steps {
+                echo 'Stage 8: Completed – Handed over to the client.'
+            }
+        }
+    }
+}
