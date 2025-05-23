@@ -21,6 +21,15 @@ pipeline {
             steps {
                 echo 'Stage 2: Unit & Integration Tests – Run tests using JUnit and Selenium.'
             }
+            post {
+                success {
+                    mail(
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Build Status Email',
+                        body: 'Unit & Integration Tests Were successful'
+                    )
+                }
+            }
         }
 
         stage('Code Analysis') {
