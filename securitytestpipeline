@@ -20,7 +20,7 @@ pipeline {
             }
             post {
                 success {
-                    mail(
+                    emailext (
                         to: '0108sandydee24@gmail.com',
                         subject: 'Jenkins Pipeline: Run Tests SUCCESS',
                         body: 'The Run Tests stage completed successfully.',
@@ -28,7 +28,7 @@ pipeline {
                     )
                 }
                 failure {
-                    mail(
+                    emailext (
                         to: '0108sandydee24@gmail.com',
                         subject: 'Jenkins Pipeline: Run Tests FAILED',
                         body: 'The Run Tests stage failed. Please check the attached log.',
@@ -50,7 +50,7 @@ pipeline {
             }
             post {
                 success {
-                    mail(
+                    emailext (
                         to: '0108sandydee24@gmail.com',
                         subject: 'Jenkins Pipeline: Security Scan SUCCESS',
                         body: 'The Security Scan stage completed successfully.',
@@ -58,7 +58,7 @@ pipeline {
                     )
                 }
                 failure {
-                    mail(
+                    emailext (
                         to: '0108sandydee24@gmail.com',
                         subject: 'Jenkins Pipeline: Security Scan FAILED',
                         body: 'The Security Scan stage failed. Please check the attached log.',
