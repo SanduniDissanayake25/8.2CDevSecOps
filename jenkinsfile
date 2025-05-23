@@ -43,5 +43,10 @@ pipeline {
                 echo 'Stage 7: Deploy to Production – Final production deployment using AWS CLI.'
             }
         }
+       stage('Complete') {
+            steps {
+                echo 'Stage 8: Completed – Handed over to the client.'
+            }
+        }
     }
 }
