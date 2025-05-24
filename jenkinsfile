@@ -4,14 +4,23 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Stage 1: Build – Compile and package the code using Maven.'
+                echo 'Stage 1: Build - Compile and package the code using Maven.'
             }
             post {
                 success {
-                    mail(
+                    emailext (
                         to: '0108sandydee24@gmail.com',
-                        subject: 'Build Status Email',
-                        body: 'Build was successful'
+                        subject: 'Jenkins Pipeline: Build SUCCESS',
+                        body: 'The Build stage completed successfully using Maven.',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Build FAILED',
+                        body: 'The Build stage failed. Tool used: Maven. Please check the attached log.',
+                        attachLog: true
                     )
                 }
             }
@@ -19,14 +28,23 @@ pipeline {
 
         stage('Unit & Integration Tests') {
             steps {
-                echo 'Stage 2: Unit & Integration Tests – Run tests using JUnit and Selenium.'
+                echo 'Stage 2: Unit & Integration Tests - Run tests using JUnit and Selenium.'
             }
             post {
                 success {
-                    mail(
+                    emailext (
                         to: '0108sandydee24@gmail.com',
-                        subject: 'Build Status Email',
-                        body: 'Unit & Integration Tests were successful'
+                        subject: 'Jenkins Pipeline: Unit & Integration Tests SUCCESS',
+                        body: 'The Unit & Integration Tests stage completed successfully using JUnit and Selenium.',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Unit & Integration Tests FAILED',
+                        body: 'The Unit & Integration Tests stage failed. Tools used: JUnit and Selenium. Please check the attached log.',
+                        attachLog: true
                     )
                 }
             }
@@ -34,13 +52,49 @@ pipeline {
 
         stage('Code Analysis') {
             steps {
-                echo 'Stage 3: Code Analysis – Use SonarQube to analyze code quality.'
+                echo 'Stage 3: Code Analysis - Use SonarQube to analyze code quality.'
+            }
+            post {
+                success {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Code Analysis SUCCESS',
+                        body: 'The Code Analysis stage completed successfully using SonarQube.',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Code Analysis FAILED',
+                        body: 'The Code Analysis stage failed. Tool used: SonarQube. Please check the attached log.',
+                        attachLog: true
+                    )
+                }
             }
         }
 
         stage('Security Scan') {
             steps {
-                echo 'Stage 4: Security Scan – Use OWASP Dependency-Check for vulnerabilities.'
+                echo 'Stage 4: Security Scan - Use OWASP Dependency-Check for vulnerabilities.'
+            }
+            post {
+                success {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Security Scan SUCCESS',
+                        body: 'The Security Scan stage completed successfully using OWASP Dependency-Check.',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Security Scan FAILED',
+                        body: 'The Security Scan stage failed. Tool used: OWASP Dependency-Check. Please check the attached log.',
+                        attachLog: true
+                    )
+                }
             }
         }
 
@@ -48,11 +102,47 @@ pipeline {
             steps {
                 echo 'Stage 5: Deploy to Staging – Deploy app to AWS EC2 using AWS CLI.'
             }
+            post {
+                success {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Deploy to Staging SUCCESS',
+                        body: 'The Deploy to Staging stage completed successfully using AWS CLI.',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Deploy to Staging FAILED',
+                        body: 'The Deploy to Staging stage failed. Tool used: AWS CLI. Please check the attached log.',
+                        attachLog: true
+                    )
+                }
+            }
         }
 
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Stage 6: Integration Tests on Staging – Use Selenium to test staging.'
+            }
+            post {
+                success {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Integration Tests on Staging SUCCESS',
+                        body: 'The Integration Tests on Staging stage completed successfully using Selenium.',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Integration Tests on Staging FAILED',
+                        body: 'The Integration Tests on Staging stage failed. Tool used: Selenium. Please check the attached log.',
+                        attachLog: true
+                    )
+                }
             }
         }
 
@@ -60,11 +150,23 @@ pipeline {
             steps {
                 echo 'Stage 7: Deploy to Production – Final production deployment using AWS CLI.'
             }
-        }
-
-        stage('Complete') {
-            steps {
-                echo 'Stage 8: Completed – Handed over to the client.'
+            post {
+                success {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Deploy to Production SUCCESS',
+                        body: 'The Deploy to Production stage completed successfully using AWS CLI.',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    emailext (
+                        to: '0108sandydee24@gmail.com',
+                        subject: 'Jenkins Pipeline: Deploy to Production FAILED',
+                        body: 'The Deploy to Production stage failed. Tool used: AWS CLI. Please check the attached log.',
+                        attachLog: true
+                    )
+                }
             }
         }
     }
