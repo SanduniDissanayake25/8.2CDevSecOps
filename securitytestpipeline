@@ -52,7 +52,7 @@ pipeline {
                 success {
                     emailext (
                         to: '0108sandydee24@gmail.com',
-                        subject: 'Jenkins Pipeline: Security Scan SUCCESS',
+                        subject: 'Jenkins Pipeline: Security Scan Success',
                         body: 'The Security Scan stage completed successfully.',
                         attachLog: true
                     )
@@ -60,7 +60,7 @@ pipeline {
                 failure {
                     emailext (
                         to: '0108sandydee24@gmail.com',
-                        subject: 'Jenkins Pipeline: Security Scan FAILED',
+                        subject: 'Jenkins Pipeline: Security Scan Failed',
                         body: 'The Security Scan stage failed. Please check the attached log.',
                         attachLog: true
                     )
