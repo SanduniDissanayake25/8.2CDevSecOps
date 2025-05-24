@@ -22,7 +22,7 @@ pipeline {
                 success {
                     emailext (
                         to: '0108sandydee24@gmail.com',
-                        subject: 'Jenkins Pipeline: Run Tests SUCCESS',
+                        subject: 'Jenkins Pipeline: Run Tests Success',
                         body: 'The Run Tests stage completed successfully.',
                         attachLog: true
                     )
@@ -30,7 +30,7 @@ pipeline {
                 failure {
                     emailext (
                         to: '0108sandydee24@gmail.com',
-                        subject: 'Jenkins Pipeline: Run Tests FAILED',
+                        subject: 'Jenkins Pipeline: Run Tests Failed',
                         body: 'The Run Tests stage failed. Please check the attached log.',
                         attachLog: true
                     )
